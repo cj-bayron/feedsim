@@ -20,6 +20,19 @@ function Avatar({ src, name }) {
   )
 }
 
+const TRENDING_TYPE_LABELS = {
+  0: null,
+  1: 'Algorithmic',
+  2: 'Featured',
+  3: 'Geolocated',
+  4: 'Recommended',
+  5: 'Boosted',
+  6: 'Little-Known Creator',
+  7: 'Most Played Creator',
+  8: 'Personalized',
+  9: 'Premium',
+}
+
 const TYPE_STYLES = {
   Video:      'bg-sky-500/15 text-sky-400',
   Text:       'bg-white/[0.08] text-white/40',
@@ -34,7 +47,9 @@ const ENTITY_STYLES = {
 }
 
 function TypeBadge({ type, linkEntityType }) {
-  const label = type === 'Link' ? (linkEntityType || 'Link') : type
+  const label = type === 'Link'
+    ? (linkEntityType ? `Link · ${linkEntityType}` : 'Link')
+    : type
   const cls = type === 'Link'
     ? (ENTITY_STYLES[linkEntityType] || TYPE_STYLES.Link)
     : (TYPE_STYLES[type] || 'bg-white/[0.08] text-white/40')
@@ -83,7 +98,14 @@ export default function CardHeader({ post }) {
         </div>
       </div>
 
-      <TypeBadge type={post.type} linkEntityType={post.linkEntity?.type} />
+      <div className="flex flex-col items-end gap-1 flex-shrink-0">
+        <TypeBadge type={post.type} linkEntityType={post.linkEntity?.type} />
+        {TRENDING_TYPE_LABELS[post.trendingPostType] && (
+          <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-white/[0.06] text-white/35">
+            {TRENDING_TYPE_LABELS[post.trendingPostType]}
+          </span>
+        )}
+      </div>
     </div>
   )
 }

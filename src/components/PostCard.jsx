@@ -3,6 +3,7 @@ import CardFooter from './CardFooter'
 import VideoCard from './VideoCard'
 import TextCard from './TextCard'
 import LinkCard from './LinkCard'
+import RevisionCard from './RevisionCard'
 
 function UnsupportedCard({ post }) {
   return (
@@ -18,6 +19,7 @@ export default function PostCard({ post }) {
       case 'Video':    return <VideoCard post={post} />
       case 'Text':     return <TextCard post={post} />
       case 'Link':     return <LinkCard post={post} />
+      case 'Revision': return <RevisionCard post={post} />
       default:         return <UnsupportedCard post={post} />
     }
   }
