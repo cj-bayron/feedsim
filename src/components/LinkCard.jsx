@@ -5,7 +5,7 @@ import { imgUrl, formatDuration, formatCount } from '../utils'
 function SafeImg({ src, alt, className }) {
   const [err, setErr] = useState(false)
   if (!src || err) return null
-  return <img src={src} alt={alt} className={className} onError={() => setErr(true)} />
+  return <img src={src} alt={alt} className={className} loading="lazy" onError={() => setErr(true)} />
 }
 
 /* ─── Main LinkCard ─── */

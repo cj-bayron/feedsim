@@ -36,6 +36,7 @@ export default function VideoCard({ post }) {
                 src={thumbnailUrl}
                 alt="Video thumbnail"
                 className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
               />
             ) : (
               <div className="absolute inset-0 bg-[#1a1a1a] flex items-center justify-center">
@@ -103,6 +104,7 @@ function TrackArtwork({ src, name }) {
       src={src}
       alt={name}
       className="w-8 h-8 rounded object-cover bg-[#222] flex-shrink-0"
+      loading="lazy"
       onError={() => setErr(true)}
     />
   )

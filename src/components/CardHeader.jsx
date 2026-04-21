@@ -15,6 +15,7 @@ function Avatar({ src, name }) {
       src={src}
       alt={name}
       className="w-9 h-9 rounded-full object-cover bg-[#252525] flex-shrink-0"
+      loading="lazy"
       onError={() => setErr(true)}
     />
   )

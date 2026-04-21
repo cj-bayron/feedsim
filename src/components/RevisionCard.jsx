@@ -4,7 +4,7 @@ import { imgUrl, formatCount } from '../utils'
 function SafeImg({ src, alt, className }) {
   const [err, setErr] = useState(false)
   if (!src || err) return null
-  return <img src={src} alt={alt} className={className} onError={() => setErr(true)} />
+  return <img src={src} alt={alt} className={className} loading="lazy" onError={() => setErr(true)} />
 }
 
 export default function RevisionCard({ post }) {
@@ -61,7 +61,7 @@ export default function RevisionCard({ post }) {
       {/* Audio player */}
       {mixdown?.file && mixdown.status === 'Ready' && (
         <div className="px-4 pb-3">
-          <audio src={mixdown.file} controls preload="metadata" className="w-full" />
+          <audio src={mixdown.file} controls preload="none" className="w-full" />
         </div>
       )}
     </div>
