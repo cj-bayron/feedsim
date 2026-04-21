@@ -1,8 +1,10 @@
 # FeedSim
 
-A BandLab feed simulator. Provide a feed endpoint URL and Bearer token to render posts in a local UI.
+A BandLab feed simulator. Sign in with your BandLab account and inspect feed endpoint responses rendered as post cards.
 
-Supports: **Video**, **Text**, **Link** (Revision, Beat, Playlist, external).
+Supports: **Video**, **Revision**, **Text**, **Link** (Beat, Playlist, RevisionPost, external).
+
+**Feed Diff** mode renders two feeds side by side for comparison.
 
 ## Dev
 
@@ -11,10 +13,10 @@ npm install
 npm run dev
 ```
 
-## Build
+## Deploy
 
 ```bash
-npm run build   # outputs to dist/
+npm run deploy   # builds and pushes to gh-pages branch
 ```
 
-Deploy `dist/` to GitHub Pages or any static host.
+Or run `npm run build` and serve `dist/` from any static host.
