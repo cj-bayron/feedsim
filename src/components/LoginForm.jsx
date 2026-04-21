@@ -27,12 +27,19 @@ export default function LoginForm({ onLogin }) {
         username:   email.trim(),
         password,
       })
-      const res = await fetch(AUTH_URLS[env], {
+
+      // In production (Azure SWA) use the server-side proxy to avoid CORS.
+      // In development the auth server allows localhost directly.
+      const url = import.meta.env.PROD
+        ? `/api/auth-proxy?env=${env}`
+        : AUTH_URLS[env]
+
+      const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+      if (!import.meta.env.PROD) headers['X-Client-Id'] = CLIENT_ID
+
+      const res = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-Client-Id':  CLIENT_ID,
-        },
+        headers,
         body: body.toString(),
       })
       const json = await res.json().catch(() => null)
