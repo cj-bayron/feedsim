@@ -2,8 +2,8 @@ import { useFeed } from '../hooks/useFeed'
 import FeedInput from './FeedInput'
 import FeedColumn from './FeedColumn'
 
-export default function FeedPane({ getToken, label, storageKey }) {
-  const { posts, paging, loading, error, handleFetch, handleLoadMore } = useFeed(getToken)
+export default function FeedPane({ getToken, renewToken, label, storageKey }) {
+  const { posts, paging, loading, error, handleFetch, handleLoadMore } = useFeed(getToken, renewToken)
 
   return (
     <div className="flex flex-col h-full min-w-0 overflow-y-auto">

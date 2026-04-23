@@ -34,6 +34,18 @@ const TRENDING_TYPE_LABELS = {
   9: 'Premium',
 }
 
+const TRENDING_TYPE_STYLES = {
+  1: 'bg-blue-500/15 text-blue-400',
+  2: 'bg-yellow-500/15 text-yellow-400',
+  3: 'bg-teal-500/15 text-teal-400',
+  4: 'bg-cyan-500/15 text-cyan-400',
+  5: 'bg-amber-500/15 text-amber-400',
+  6: 'bg-pink-500/15 text-pink-400',
+  7: 'bg-rose-500/15 text-rose-400',
+  8: 'bg-violet-500/15 text-violet-400',
+  9: 'bg-emerald-500/15 text-emerald-400',
+}
+
 const TYPE_STYLES = {
   Video:      'bg-sky-500/15 text-sky-400',
   Text:       'bg-white/[0.08] text-white/40',
@@ -102,7 +114,7 @@ export default function CardHeader({ post }) {
       <div className="flex flex-col items-end gap-1 flex-shrink-0">
         <TypeBadge type={post.type} linkEntityType={post.linkEntity?.type} />
         {TRENDING_TYPE_LABELS[post.trendingPostType] && (
-          <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold bg-white/[0.06] text-white/35">
+          <span className={`text-[11px] px-2 py-0.5 rounded-full font-semibold ${TRENDING_TYPE_STYLES[post.trendingPostType] || 'bg-white/[0.06] text-white/35'}`}>
             {TRENDING_TYPE_LABELS[post.trendingPostType]}
           </span>
         )}

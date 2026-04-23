@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-export function useFeed(getToken) {
+export function useFeed(getToken, renewToken) {
   const [feedUrl, setFeedUrl] = useState('')
   const [posts, setPosts] = useState([])
   const [paging, setPaging] = useState(null)
@@ -17,12 +17,22 @@ export function useFeed(getToken) {
         u.searchParams.set('after', cursor)
         fetchUrl = u.toString()
       }
-      const res = await fetch(fetchUrl, {
+
+      const fetchWithToken = (token) => fetch(fetchUrl, {
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${token}`,
           'X-Client-Id': 'BandLab-Backend',
         },
       })
+
+      let res = await fetchWithToken(getToken())
+
+      // On 401, attempt a single token renewal then retry
+      if (res.status === 401 && renewToken) {
+        const newToken = await renewToken()
+        res = await fetchWithToken(newToken)
+      }
+
       if (!res.ok) {
         const body = await res.text().catch(() => '')
         throw new Error(`HTTP ${res.status} ${res.statusText}${body ? ' — ' + body.slice(0, 300) : ''}`)
@@ -44,7 +54,7 @@ export function useFeed(getToken) {
     } finally {
       setLoading(false)
     }
-  }, [getToken])
+  }, [getToken, renewToken])
 
   const handleFetch = useCallback((url) => {
     setFeedUrl(url)

@@ -51,8 +51,9 @@ export default function LoginForm({ onLogin }) {
 
       sessionStorage.setItem('feedsim_env',   env)
       sessionStorage.setItem('feedsim_email', email.trim())
+      if (json.refresh_token) sessionStorage.setItem('feedsim_refresh_token', json.refresh_token)
 
-      onLogin(json.access_token)
+      onLogin(json.access_token, json.refresh_token || null)
     } catch (e) {
       if (e instanceof TypeError && e.message === 'Failed to fetch') {
         setError('Network error — request blocked (likely CORS). The auth server must allow browser cross-origin requests.')
