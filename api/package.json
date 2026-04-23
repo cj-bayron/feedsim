@@ -1,9 +1,0 @@
-{
-  "name": "feedsim-api",
-  "version": "1.0.0",
-  "description": "Azure Functions API for FeedSim",
-  "main": "index.js",
-  "engines": {
-    "node": ">=18"
-  }
-}
