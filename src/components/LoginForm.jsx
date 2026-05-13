@@ -28,14 +28,13 @@ export default function LoginForm({ onLogin }) {
         password,
       })
 
-      // In production (Azure SWA) use the server-side proxy to avoid CORS.
-      // In development the auth server allows localhost directly.
-      const url = import.meta.env.PROD
-        ? `/api/auth-proxy?env=${env}`
-        : AUTH_URLS[env]
+      // Use the server-side proxy only on Azure SWA (VITE_USE_AUTH_PROXY=true).
+      // GitHub Pages and local dev call the auth server directly.
+      const useProxy = import.meta.env.VITE_USE_AUTH_PROXY === 'true'
+      const url = useProxy ? `/api/auth-proxy?env=${env}` : AUTH_URLS[env]
 
       const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-      if (!import.meta.env.PROD) headers['X-Client-Id'] = CLIENT_ID
+      if (!useProxy) headers['X-Client-Id'] = CLIENT_ID
 
       const res = await fetch(url, {
         method: 'POST',

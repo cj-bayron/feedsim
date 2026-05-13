@@ -43,9 +43,10 @@ export default function App() {
       client_id:     CLIENT_ID,
       refresh_token: stored,
     })
-    const url = import.meta.env.PROD ? `/api/auth-proxy?env=${env}` : AUTH_URLS[env]
+    const useProxy = import.meta.env.VITE_USE_AUTH_PROXY === 'true'
+    const url = useProxy ? `/api/auth-proxy?env=${env}` : AUTH_URLS[env]
     const headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-    if (!import.meta.env.PROD) headers['X-Client-Id'] = CLIENT_ID
+    if (!useProxy) headers['X-Client-Id'] = CLIENT_ID
     const res = await fetch(url, { method: 'POST', headers, body: body.toString() })
     const json = await res.json().catch(() => null)
     if (!res.ok || !json?.access_token) {
